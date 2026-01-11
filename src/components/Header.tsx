@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Leaf } from "lucide-react";
+import { Menu, X, Leaf, LogIn, LogOut, User } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
+  const { user, isAuthenticated, signOut, loading } = useAuth();
 
   const navItems = [
     { label: "Home", href: "/" },
@@ -45,13 +47,36 @@ const Header = () => {
             ))}
           </nav>
 
-          {/* CTA Button */}
-          <div className="hidden md:block">
-            <Link to="/assessment">
-              <Button variant="calm" size="default">
-                Take Assessment
-              </Button>
-            </Link>
+          {/* Auth Buttons */}
+          <div className="hidden md:flex items-center gap-3">
+            {!loading && (
+              <>
+                {isAuthenticated ? (
+                  <>
+                    <span className="text-sm text-muted-foreground flex items-center gap-2">
+                      <User className="w-4 h-4" />
+                      {user?.user_metadata?.full_name || user?.email?.split('@')[0]}
+                    </span>
+                    <Button 
+                      variant="outline" 
+                      size="sm"
+                      onClick={signOut}
+                      className="gap-2"
+                    >
+                      <LogOut className="w-4 h-4" />
+                      Sign Out
+                    </Button>
+                  </>
+                ) : (
+                  <Link to="/auth">
+                    <Button variant="calm" size="default" className="gap-2">
+                      <LogIn className="w-4 h-4" />
+                      Sign In
+                    </Button>
+                  </Link>
+                )}
+              </>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -86,11 +111,30 @@ const Header = () => {
                 </Link>
               ))}
               <div className="mt-2 px-4">
-                <Link to="/assessment" onClick={() => setIsMenuOpen(false)}>
-                  <Button variant="calm" className="w-full">
-                    Take Assessment
-                  </Button>
-                </Link>
+                {!loading && (
+                  <>
+                    {isAuthenticated ? (
+                      <Button 
+                        variant="outline" 
+                        className="w-full gap-2"
+                        onClick={() => {
+                          signOut();
+                          setIsMenuOpen(false);
+                        }}
+                      >
+                        <LogOut className="w-4 h-4" />
+                        Sign Out
+                      </Button>
+                    ) : (
+                      <Link to="/auth" onClick={() => setIsMenuOpen(false)}>
+                        <Button variant="calm" className="w-full gap-2">
+                          <LogIn className="w-4 h-4" />
+                          Sign In
+                        </Button>
+                      </Link>
+                    )}
+                  </>
+                )}
               </div>
             </nav>
           </div>
