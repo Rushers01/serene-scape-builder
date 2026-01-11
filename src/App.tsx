@@ -9,6 +9,7 @@ import AssessmentResults from "./pages/AssessmentResults";
 import Community from "./pages/Community";
 import Campaigns from "./pages/Campaigns";
 import Donations from "./pages/Donations";
+import AIChat from "./pages/AIChat";
 import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
 
@@ -27,6 +28,7 @@ const App = () => (
           <Route path="/community" element={<Community />} />
           <Route path="/campaigns" element={<Campaigns />} />
           <Route path="/donations" element={<Donations />} />
+          <Route path="/ai-chat" element={<AIChat />} />
           <Route path="/auth" element={<Auth />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

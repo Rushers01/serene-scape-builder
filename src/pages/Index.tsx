@@ -5,7 +5,6 @@ import AffirmationsCarousel from "@/components/AffirmationsCarousel";
 import MeditationCards from "@/components/MeditationCards";
 import ExercisesSection from "@/components/ExercisesSection";
 import Footer from "@/components/Footer";
-import AIChatbox from "@/components/AIChatbox";
 
 const Index = () => {
   return (
@@ -19,7 +18,6 @@ const Index = () => {
         <ExercisesSection />
       </main>
       <Footer />
-      <AIChatbox />
     </div>
   );
 };
