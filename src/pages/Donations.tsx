@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Heart, Sparkles, Users, QrCode, ChevronRight } from "lucide-react";
+import { Heart, Sparkles, Users, QrCode, ChevronRight, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { toast } from "@/hooks/use-toast";
@@ -13,6 +14,34 @@ const impactStats = [
   { icon: Heart, label: "Lives Touched", value: "1,200+" },
   { icon: Sparkles, label: "Smiles Created", value: "10,000+" },
 ];
+
+const recentDonors = [
+  { name: "Sarah M.", amount: 100, timeAgo: "2 minutes ago", message: "For the children 💖" },
+  { name: "Anonymous", amount: 50, timeAgo: "5 minutes ago", message: "" },
+  { name: "James K.", amount: 250, timeAgo: "12 minutes ago", message: "Spreading love!" },
+  { name: "Priya S.", amount: 25, timeAgo: "18 minutes ago", message: "Every bit helps" },
+  { name: "Michael T.", amount: 500, timeAgo: "25 minutes ago", message: "Keep up the great work!" },
+  { name: "Emma L.", amount: 75, timeAgo: "32 minutes ago", message: "" },
+  { name: "Anonymous", amount: 100, timeAgo: "45 minutes ago", message: "With love ❤️" },
+  { name: "David R.", amount: 50, timeAgo: "1 hour ago", message: "" },
+];
+
+const getInitials = (name: string) => {
+  if (name === "Anonymous") return "?";
+  return name.split(" ").map(n => n[0]).join("");
+};
+
+const getAvatarColor = (name: string) => {
+  const colors = [
+    "bg-primary/20 text-primary",
+    "bg-accent/40 text-accent-foreground",
+    "bg-secondary text-secondary-foreground",
+    "bg-warmth/20 text-warmth",
+    "bg-nature/20 text-nature",
+  ];
+  const index = name.charCodeAt(0) % colors.length;
+  return colors[index];
+};
 
 const Donations = () => {
   const [selectedAmount, setSelectedAmount] = useState<number | null>(25);
@@ -183,6 +212,55 @@ const Donations = () => {
               </p>
             </CardContent>
           </Card>
+        </div>
+
+        {/* Recent Donors Section */}
+        <div className="mt-16 max-w-4xl mx-auto">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl font-bold text-foreground mb-2">Recent Kindness</h2>
+            <p className="text-muted-foreground">Join these amazing people spreading happiness</p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {recentDonors.map((donor, index) => (
+              <Card 
+                key={index} 
+                className="bg-card/50 backdrop-blur border-border/50 hover:border-primary/30 transition-all animate-fade-in"
+                style={{ animationDelay: `${index * 100}ms` }}
+              >
+                <CardContent className="flex items-center gap-4 p-4">
+                  <Avatar className={`w-12 h-12 ${getAvatarColor(donor.name)}`}>
+                    <AvatarFallback className="font-medium">
+                      {getInitials(donor.name)}
+                    </AvatarFallback>
+                  </Avatar>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center justify-between gap-2">
+                      <p className="font-semibold text-foreground truncate">{donor.name}</p>
+                      <span className="text-lg font-bold text-primary">${donor.amount}</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                      <Clock className="w-3 h-3" />
+                      <span>{donor.timeAgo}</span>
+                      {donor.message && (
+                        <>
+                          <span>•</span>
+                          <span className="truncate">{donor.message}</span>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+          
+          <div className="text-center mt-6">
+            <p className="text-sm text-muted-foreground">
+              <Heart className="w-4 h-4 inline-block text-primary mr-1" />
+              <span className="font-medium text-primary">847 people</span> donated this week
+            </p>
+          </div>
         </div>
 
         {/* Mission Section */}
