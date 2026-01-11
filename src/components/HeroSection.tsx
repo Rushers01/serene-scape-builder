@@ -1,5 +1,6 @@
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Play, Heart, Sparkles } from "lucide-react";
+import { Play, Heart, Sparkles, MessageCircle } from "lucide-react";
 
 const HeroSection = () => {
   return (
@@ -41,6 +42,20 @@ const HeroSection = () => {
               <Play className="w-5 h-5 group-hover:scale-110 transition-transform" />
               Watch Demo
             </Button>
+          </div>
+
+          {/* AI Chat Button */}
+          <div className="mt-6 animate-slide-up" style={{ animationDelay: '0.3s' }}>
+            <Link to="/ai-chat">
+              <Button 
+                variant="outline" 
+                size="lg" 
+                className="gap-2 border-primary/30 hover:border-primary hover:bg-primary/5"
+              >
+                <MessageCircle className="w-5 h-5 text-primary" />
+                Chat with AI Companion
+              </Button>
+            </Link>
           </div>
 
           {/* Breathing Circle */}

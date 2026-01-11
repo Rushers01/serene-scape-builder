@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Leaf, LogIn, LogOut, User } from "lucide-react";
+import { Menu, X, Leaf, LogIn, LogOut, User, MessageCircle } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 
 const Header = () => {
@@ -14,6 +14,7 @@ const Header = () => {
     { label: "Assessment", href: "/assessment" },
     { label: "Community", href: "/community" },
     { label: "Campaigns", href: "/campaigns" },
+    { label: "AI Chat", href: "/ai-chat", icon: MessageCircle },
   ];
 
   return (
@@ -36,12 +37,13 @@ const Header = () => {
               <Link
                 key={item.label}
                 to={item.href}
-                className={`px-4 py-2 rounded-lg transition-all duration-200 ${
+                className={`px-4 py-2 rounded-lg transition-all duration-200 flex items-center gap-2 ${
                   location.pathname === item.href 
                     ? "text-foreground bg-muted/50" 
                     : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
                 }`}
               >
+                {item.icon && <item.icon className="w-4 h-4" />}
                 {item.label}
               </Link>
             ))}
