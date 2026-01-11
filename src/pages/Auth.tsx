@@ -173,6 +173,15 @@ const Auth = () => {
                   >
                     {isLoading ? "Signing in..." : "Sign In"}
                   </Button>
+
+                  {/* Demo Admin Credentials */}
+                  <div className="mt-4 p-3 bg-primary/10 rounded-lg border border-primary/20">
+                    <p className="text-xs font-medium text-primary mb-2">Demo Admin Account:</p>
+                    <div className="space-y-1 text-xs text-muted-foreground">
+                      <p><span className="font-medium">Email:</span> admin@example.com</p>
+                      <p><span className="font-medium">Password:</span> 123456</p>
+                    </div>
+                  </div>
                 </form>
               </TabsContent>
 
@@ -236,14 +245,6 @@ const Auth = () => {
                     {isLoading ? "Creating account..." : "Create Account"}
                   </Button>
 
-                  {/* Demo Admin Credentials */}
-                  <div className="mt-4 p-3 bg-primary/10 rounded-lg border border-primary/20">
-                    <p className="text-xs font-medium text-primary mb-2">Demo Admin Account:</p>
-                    <div className="space-y-1 text-xs text-muted-foreground">
-                      <p><span className="font-medium">Email:</span> admin@example.com</p>
-                      <p><span className="font-medium">Password:</span> 123456</p>
-                    </div>
-                  </div>
                 </form>
               </TabsContent>
             </Tabs>
